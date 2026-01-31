@@ -1,0 +1,23 @@
+name: Bitcoin Search
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential git
+          git clone https://github.com/brichard19/BitCrack.git
+          cd BitCrack
+          make
+
+      - name: Run Search
+        run: |
+          cd BitCrack
+          ./BitCrack --keyspace 40000000000000000:7ffffffffffffffff --address 1PWo3JeB9jrGwfHDNpdGK54CRas7fsVzXU -r
+          
